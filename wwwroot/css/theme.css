@@ -1,0 +1,22 @@
+/* wwwroot/css/theme.css */
+:root {
+  --primary-color: #007bff; /* Цвет основной темы */
+  --secondary-color: #6c757d; /* Вторичный цвет */
+  --background-color: #ffffff; /* Цвет фона */
+  --text-color: #212529; /* Цвет текста */
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* Пример использования для разных компонентов */
+.navbar {
+  background-color: var(--primary-color);
+}
+
+.button {
+  background-color: var(--secondary-color);
+  color: #ffffff;
+}

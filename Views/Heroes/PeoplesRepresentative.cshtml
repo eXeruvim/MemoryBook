@@ -1,0 +1,16 @@
+@{
+    ViewData["Title"] = "Народные избранники";
+}
+
+<div class="container">
+    <h1 class="text-center">Народные избранники</h1>
+    <div class="row">
+        @foreach (var hero in Model.Heroes)
+        {
+            <div class="col-md-4 mb-4">
+                <img src="@hero.PhotoUrl" class="img-fluid rounded shadow-sm" alt="Фото @hero.FullName" />
+                <p class="text-center">@hero.FullName</p>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,61 @@
+@model AboutViewModel
+
+@{
+    ViewData["Title"] = "О проекте";
+}
+
+<div class="container">
+    <h1 class="text-center">@Model.ImageTitle</h1>
+    <p>@Model.ProjectDescription</p>
+
+    <h2>Члены общественной редколлегии и рабочей группы Книги Памяти РК 1990-е годы</h2>
+    <div class="row">
+        @foreach (var member in Model.EditorialBoardMembers)
+        {
+            <div class="col-md-4 mb-4">
+                <img src="@member.PhotoUrl" class="img-fluid rounded shadow-sm" alt="Фото @member.FullName" />
+                <p class="text-center">@member.FullName</p>
+            </div>
+        }
+    </div>
+
+    <h2>Задачи проекта</h2>
+    <div class="row">
+        @foreach (var objective in Model.ProjectObjectives)
+        {
+            <div class="col-md-4 mb-4 text-center">
+                <i class="@objective.Icon fa-3x"></i>
+                <p>@objective.Description</p>
+            </div>
+        }
+    </div>
+
+    <h2>Взаимодействие со СМИ</h2>
+    <ul>
+        @foreach (var link in Model.MediaLinks)
+        {
+            <li><a href="@link.Url">@link.Name</a></li>
+        }
+    </ul>
+
+    <h2>Сетевые сообщества</h2>
+    @Html.Raw(Model.SocialMediaWidget)
+
+    <p>@Model.Acknowledgement</p>
+
+    <h2>Партнеры проекта</h2>
+    <ul>
+        @foreach (var partner in Model.Partners)
+        {
+            <li>@partner</li>
+        }
+    </ul>
+</div>
+
+<!-- Подключение стилей и скриптов -->
+@section Styles {
+    <link rel="stylesheet" href="~/css/about.css" />
+}
+@section Scripts {
+    <script src="~/js/about.js"></script>
+}

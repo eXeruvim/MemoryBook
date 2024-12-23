@@ -1,0 +1,61 @@
+@{
+    ViewData["Title"] = "Обратная связь";
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<div class="container">
+    <main role="main" class="pb-3">
+        <h1>Обратная связь</h1>
+        <p>Уважаемые пользователи сайта! Обращаемся к Вам с просьбой - если ваши родственники-участники Великой
+            Отечественной войны и войны с Японией в 1945 г. призывались с территории Коми АССР или после войны проживали
+            в Коми АССР, поделитесь с нами информацией (а также сопроводительными материалами - копии документов и
+            фотографий, очерки и статьи) о судьбе ваших родных! Информацию можно:</p>
+        <ul>
+            <li>направлять на электронную почту <a
+                    href="mailto:memorybook-rk@yandex.ru?subject=Память поколений">memorybook-rk@yandex.ru</a> с темой
+                письма "Память поколений";</li>
+            <li>присылать по адресу <a
+                    href="">167001, г.
+                    Сыктывкар, Октябрьский проспект, 55, НОЦ "Память поколений"</a> с пометкой "Память поколений".</li>
+        </ul>
+        <div class="row">
+            <div class="col-md-12">
+                <form method="post" asp-controller="Feedback" asp-action="ConfirmSend"
+                    enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="Email" required />
+                        @* @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" }) *@
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Текст сообщения</label>
+                        <textarea class="form-control" id="message" name="Message" required></textarea>
+                        @* @Html.ValidationMessageFor(m => m.Message, "", new { @class = "text-danger" }) *@
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="file" class="form-label">Файл (ZIP, RAR, 7Z, TAR до 20МБ)</label>
+                        <input type="file" name="File" class="form-control" />
+                        @* <span asp-validation-for="File" class="text-danger"></span> *@
+                        @* @Html.ValidationMessageFor(m => m.File, "", new { @class = "text-danger" }) *@
+                    </div>
+                    <button type="submit" name="Upload" class="btn btn-primary">Upload</button>
+                </form>
+            </div>
+        </div>
+    </main>
+</div>

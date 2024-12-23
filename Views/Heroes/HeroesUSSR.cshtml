@@ -1,0 +1,66 @@
+@{
+    ViewData["Title"] = "Герои СССР";
+}
+
+<div class="container">
+    <h1 class="text-center">Герои СССР</h1>
+    <div class="row">
+        @foreach (var hero in Model.Heroes)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm" data-bs-toggle="modal" data-bs-target="#heroModal"
+                    data-bs-hero="@System.Text.Json.JsonSerializer.Serialize(hero)">
+                    <img src="@hero.PhotoUrl" class="card-img-top img-fluid rounded shadow-sm" alt="Фото @hero.FullName" />
+                    <div class="card-body text-center">
+                        <p class="card-text">@hero.FullName</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+<!-- Модальное окно -->
+<div class="modal fade" id="heroModal" tabindex="-1" aria-labelledby="heroModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="heroModalLabel">Информация о герое</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <img id="modalPhoto" src="" class="img-fluid mb-3" alt="Фото героя">
+                </div>
+                <h3 id="modalFullName" class="text-center"></h3>
+                <p><strong>Год рождения:</strong> <span id="modalBirthYear">Неизвестно</span></p>
+                <p><strong>Год смерти:</strong> <span id="modalDeathYear">Неизвестно</span></p>
+                <p><strong>Биография:</strong></p>
+                <p id="modalBiography">Биография отсутствует.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const modal = document.getElementById("heroModal");
+
+        modal.addEventListener("show.bs.modal", function (event) {
+            const button = event.relatedTarget; // Карточка, которая вызвала модальное окно
+            const heroData = JSON.parse(button.getAttribute("data-bs-hero"));
+
+            console.log("Данные героя:", heroData); // Отладочный вывод
+
+            // Заполняем модальное окно
+            modal.querySelector("#modalPhoto").src = heroData.PhotoUrl || "/images/default.jpg";
+            modal.querySelector("#modalFullName").textContent = heroData.FullName || "Неизвестный герой";
+            modal.querySelector("#modalBirthYear").textContent = heroData.BirthYear || "Неизвестно";
+            modal.querySelector("#modalDeathYear").textContent = heroData.DeathYear || "Неизвестно";
+            modal.querySelector("#modalBiography").textContent = heroData.Biography || "Биография отсутствует.";
+        });
+    });
+
+</script>

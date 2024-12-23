@@ -1,0 +1,60 @@
+# Логи и временные файлы
+*.log
+*.tlog
+*.pid
+*.tmp
+*.temp
+*.obj
+*.bak
+*.old
+*.idb
+
+# Файлы сборки и кэша
+**/Properties/launchSettings.json
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+*.cache
+*.ilk
+*.lib
+*.nupkg
+*.sqlite
+*.mdb
+*.vshost.*
+.vscode/
+.vs/
+_ReSharper.Caches/
+.idea/
+/migrations/*
+appsettings.json
+
+# ASP.NET временные файлы
+*.log
+**/aspnet_client/*
+App_Data/
+
+wwwroot/uploads/*
+
+# Конфигурационные файлы IDE
+*.vspscc
+*.vssscc
+.vscode/settings.json
+.vscode/tasks.json
+.vscode/launch.json
+.vscode/extensions.json
+
+# Пакеты NuGet
+*.nupkg
+*.snupkg
+packages/
+.nuget/packages/
+.nuget/
+
+# Локальная конфигурация
+appsettings.Development.json
+appsettings.Local.json
+
+
+

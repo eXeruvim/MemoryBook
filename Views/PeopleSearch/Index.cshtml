@@ -1,0 +1,161 @@
+@model MemoryBook.Models.PeopleSearchViewModel
+
+@{
+    ViewData["Title"] = "Поиск";
+    var pageNumber = (ViewData["PageNumber"] as int?) ?? 1;
+    var pageSize = 10;
+    var totalHeroes = Model.Heroes?.Count() ?? 0;
+    var totalPages = (int)Math.Ceiling(totalHeroes / (double)pageSize);
+}
+
+<div class="container mt-5">
+    <h1 class="mb-4">Поиск информации</h1>
+    <form asp-action="Search" method="get">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="LastName" class="form-label">Фамилия</label>
+                <input type="text" class="form-control" id="LastName" name="LastName" placeholder="Введите фамилию">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="FirstName" class="form-label">Имя</label>
+                <input type="text" class="form-control" id="FirstName" name="FirstName" placeholder="Введите имя">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="MiddleName" class="form-label">Отчество</label>
+                <input type="text" class="form-control" id="MiddleName" name="MiddleName"
+                    placeholder="Введите отчество">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="BirthDate" class="form-label">Дата рождения</label>
+                <input type="date" class="form-control" id="BirthDate" name="BirthDate">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="BirthPlace" class="form-label">Место рождения</label>
+                <input type="text" class="form-control" id="BirthPlace" name="BirthPlace"
+                    placeholder="Введите место рождения">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="ConscriptionPlace" class="form-label">Место призыва</label>
+                <input type="text" class="form-control" id="ConscriptionPlace" name="ConscriptionPlace"
+                    placeholder="Введите место призыва">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="Rank" class="form-label">Воинское звание</label>
+                <input type="text" class="form-control" id="Rank" name="Rank" placeholder="Введите звание">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="DeathDate" class="form-label">Дата выбытия</label>
+                <input type="date" class="form-control" id="DeathDate" name="DeathDate">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="BurialPlace" class="form-label">Место захоронения</label>
+                <input type="text" class="form-control" id="BurialPlace" name="BurialPlace"
+                    placeholder="Введите место захоронения">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="DischargePlace" class="form-label">Место выбытия</label>
+                <input type="text" class="form-control" id="DischargePlace" name="DischargePlace"
+                    placeholder="Введите место выбытия">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="ReburialFrom" class="form-label">Откуда перезахоронен</label>
+                <input type="text" class="form-control" id="ReburialFrom" name="ReburialFrom"
+                    placeholder="Введите место перезахоронения">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="CapturePlace" class="form-label">Место пленения</label>
+                <input type="text" class="form-control" id="CapturePlace" name="CapturePlace"
+                    placeholder="Введите место пленения">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Поиск</button>
+    </form>
+
+    <div class="mt-5">
+        <h2 class="mb-4">Результаты поиска</h2>
+
+        @{
+            var heroesPage = (Model.Heroes ?? Enumerable.Empty<MemBook>())
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+        }
+
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">№ пп</th>
+                    <th scope="col">Знаки отличия</th>
+                    <th scope="col">Фамилия</th>
+                    <th scope="col">Имя</th>
+                    <th scope="col">Отчество</th>
+                    <th scope="col">Фото</th>
+                    <th scope="col">Дата рождения</th>
+                    <th scope="col">Место призыва</th>
+                    <th scope="col">Место рождения</th>
+                    <th scope="col">Дата смерти</th>
+                    <th scope="col">Карточка</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var hero in heroesPage)
+                {
+                    <tr>
+                        <td>@hero.Id</td>
+                        <td>@(hero.HeroesOrder.HasValue ? "Да" : "Нет")</td>
+                        <td>@(string.IsNullOrEmpty(hero.Family) ? "Не указано" : hero.Family)</td>
+                        <td>@(string.IsNullOrEmpty(hero.Name) ? "Не указано" : hero.Name)</td>
+                        <td>@(string.IsNullOrEmpty(hero.MiddleName) ? "Не указано" : hero.MiddleName)</td>
+                        <td>
+                            @if (hero.Image != null)
+                            {
+                                <img src="@hero.Image" alt="Фото" width="100" />
+                            }
+                            else
+                            {
+                                <span>Не указано</span>
+                            }
+                        </td>
+                        <td>@(string.IsNullOrEmpty(hero.Birthday) ? "Не указано" : hero.Birthday)</td>
+                        <td>@(string.IsNullOrEmpty(hero.DraftPlace) ? "Не указано" : hero.DraftPlace)</td>
+                        <td>@(string.IsNullOrEmpty(hero.BirthPlace) ? "Не указано" : hero.BirthPlace)</td>
+                        <td>@(string.IsNullOrEmpty(hero.DateDeath) ? "Не указано" : hero.DateDeath)</td>
+                        <td><a href="@Url.Action("Details", "Heroes", new { id = hero.Id })">Карточка</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            <ul class="pagination">
+                @* Пагинация *@
+                <li class="page-item @(pageNumber == 1 ? "disabled" : "")">
+                    <a class="page-link" href="?page=1">Первая</a>
+                </li>
+                <li class="page-item @(pageNumber == 1 ? "disabled" : "")">
+                    <a class="page-link" href="?page=@(pageNumber - 1)">Предыдущая</a>
+                </li>
+                <li class="page-item @(pageNumber == totalPages ? "disabled" : "")">
+                    <a class="page-link" href="?page=@(pageNumber + 1)">Следующая</a>
+                </li>
+                <li class="page-item @(pageNumber == totalPages ? "disabled" : "")">
+                    <a class="page-link" href="?page=@totalPages">Последняя</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>

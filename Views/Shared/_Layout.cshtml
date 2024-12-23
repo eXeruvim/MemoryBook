@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MemoryBook</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MemoryBook.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/theme.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MemoryBook</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav flex-grow-1">
+                        @* <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home"
+                                asp-action="Index">Главная</a>
+                        </li> *@
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="About" asp-action="Index">О
+                                проекте</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="PeopleSearch"
+                                asp-action="Index">Пофамильный
+                                поиск</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownRepublik"
+                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Республика в годы войны
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Memory"
+                                        asp-action="Locations">Места памяти</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Memory"
+                                        asp-action="FrontlineActivity">Фронтовая деятельность</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Memory"
+                                        asp-action="LaborInRear">Труд в тылу</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownHeroes"
+                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Герои земли Коми
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Heroes"
+                                        asp-action="HeroesUSSR">Герои СССР</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Heroes"
+                                        asp-action="FullCavalierOrder">Полные кавалеры ордена Славы</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Heroes"
+                                        asp-action="HeroesOfLabor">Герои социалистического труда</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Heroes"
+                                        asp-action="FamousPeople">Знаменитые люди земли Коми</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Heroes"
+                                        asp-action="PeoplesRepresentative">Народные избранники</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Heroes"
+                                        asp-action="VictoryParadeParticipants">Участники Парада Победы</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Gallery"
+                                asp-action="Index">Галерея</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Editor"
+                                asp-action="Index">Общественная редколлегия</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Feedback"
+                                asp-action="Index">Обратная связь</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Войти</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - MemoryBook - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    @RenderSection("Styles", required: false)
+</body>
+
+</html>
